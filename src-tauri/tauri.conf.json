@@ -27,8 +27,8 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
-      "targets": "all"
+      "identifier": "com.itove.namey",
+      "targets": "msi"
     },
     "security": {
       "csp": null
