@@ -41,7 +41,6 @@ function App() {
           <input
             id="greet-input"
             type="file"
-            webkitdirectory="true"
             onChange={(e) => setName(e.currentTarget.value)}
             placeholder="选择目录"
           />
