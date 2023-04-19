@@ -92,9 +92,7 @@ button {
 }
 
 .footer{
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+  margin-top: 4rem;
   color: #888888;
 }
 
