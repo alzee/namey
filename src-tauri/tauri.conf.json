@@ -16,6 +16,13 @@
       "shell": {
         "all": false,
         "open": true
+      },
+      "dialog": {
+        "open": true
+      },
+      "fs": {
+        "readDir": true,
+        "renameFile": true
       }
     },
     "bundle": {
