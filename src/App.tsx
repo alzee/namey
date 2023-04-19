@@ -7,36 +7,37 @@ import "./App.css";
 
 function App() {
   const [name, setName] = useState("");
-  const [digit, setDigit] = useState("");
+  const [digit, setDigit] = useState(2);
   const [msg, setMsg] = useState("");
   const [dir, setDir] = useState("");
 
   async function getDir() {
     const dir = await open({directory: true})
-    setDir(dir)
+    if (!Array.isArray(dir)) {
+      setDir(dir)
+    }
   }
 
-  async function rename(dir, digit) {
+  async function rename(dir: string, digit: number) {
     if (dir === null || dir === '') {
       setMsg('请选择目录')
     } else {
-      // process
       const entries = await readDir(dir)
       for (const entry of entries) {
         // ignore dirs
         if (entry.children === undefined) {
-          const arr = entry.name.split('.')
+          const arr = entry.name!.split('.')
           const ext = arr.pop()
           // remove leadding 0s so don't need to worry about name.length gt or lt digit
           const name = arr.join('.').replace(/^0+/, '')
-          const newName = name.padStart(digit, 0)
+          const newName = name.padStart(digit, '0')
           await renameFile(entry.path, dir + '/' + newName + '.' + ext);
         }
       }
     }
   }
 
-  function sendMsg(s: int) {
+  function sendMsg(s: number) {
     if (s === 0) {
       setMsg('处理中...')
     } else {
@@ -92,7 +93,7 @@ function App() {
             type="number"
             min="2"
             required
-            onChange={(e) => setDigit(e.currentTarget.value)}
+            onChange={(e) => setDigit(Number(e.currentTarget.value))}
             placeholder="文件名长度"
           />
           <button type="submit">确定</button>
