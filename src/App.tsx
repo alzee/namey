@@ -75,12 +75,6 @@ function App() {
           }}
         >
           <input
-            id="greet-input"
-            type="file"
-            onChange={(e) => setName(e.currentTarget.value)}
-            placeholder="选择目录"
-          />
-          <input
             id="dir-input"
             onClick={() => getDir()}
             readOnly
