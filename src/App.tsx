@@ -22,6 +22,7 @@ function App() {
     if (dir === null || dir === '') {
       setMsg('请选择目录')
     } else {
+      setMsg('处理中...')
       const entries = await readDir(dir)
       for (const entry of entries) {
         // ignore dirs
@@ -34,21 +35,8 @@ function App() {
           await renameFile(entry.path, dir + '/' + newName + '.' + ext);
         }
       }
-    }
-  }
-
-  function sendMsg(s: number) {
-    if (s === 0) {
-      setMsg('处理中...')
-    } else {
       setMsg('完成')
     }
-  }
-
-  async function go() {
-    sendMsg(0)
-    await rename(dir, digit);
-    sendMsg(1)
   }
 
   return (
@@ -71,7 +59,7 @@ function App() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            go()
+            rename(dir, digit)
           }}
         >
           <input
