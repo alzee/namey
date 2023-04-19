@@ -35,7 +35,12 @@
         "icons/icon.ico"
       ],
       "identifier": "com.itove.namey",
-      "targets": "msi"
+      "targets": "msi",
+      "windows": {
+        "webviewInstallMode": {
+          "type": "embedBootstrapper"
+        }
+      }
     },
     "security": {
       "csp": null
