@@ -3,7 +3,10 @@ import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/tauri";
 import { open } from '@tauri-apps/api/dialog';
 import { renameFile, readDir } from '@tauri-apps/api/fs';
+import { getVersion } from '@tauri-apps/api/app';
 import "./App.css";
+
+const ver = await getVersion();
 
 function App() {
   const [name, setName] = useState("");
@@ -44,8 +47,8 @@ function App() {
       <h1>Namey</h1>
 
       <div className="row">
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
+        <a href="https://itove.com" target="_blank">
+          <img src="/tauri.svg" className="logo tauri" alt="itove logo" />
         </a>
       </div>
 
@@ -84,6 +87,7 @@ function App() {
         </form>
       </div>
       <p>{msg}</p>
+      <p className="footer">{ver}</p>
     </div>
   );
 }

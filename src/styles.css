@@ -91,6 +91,13 @@ button {
   justify-content: space-between;
 }
 
+.footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: #888888;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     color: #f6f6f6;
