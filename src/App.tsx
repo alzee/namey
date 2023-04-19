@@ -13,7 +13,7 @@ function App() {
 
   async function getDir() {
     const dir = await open({directory: true})
-    if (!Array.isArray(dir)) {
+    if (!Array.isArray(dir) && dir !== null) {
       setDir(dir)
     }
   }
