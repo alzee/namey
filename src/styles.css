@@ -91,14 +91,6 @@ button {
   justify-content: space-between;
 }
 
-#greet-input {
-  margin-right: 5px;
-}
-.tip{
-  text-align: left;
-  margin: 0 auto 30px;
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     color: #f6f6f6;

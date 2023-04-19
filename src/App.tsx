@@ -81,6 +81,7 @@ function App() {
             placeholder="选择目录"
           />
           <input
+            id="dir-input"
             onClick={() => getDir()}
             readOnly
             required
