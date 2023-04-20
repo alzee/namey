@@ -16,9 +16,8 @@ function App() {
   const [msg, setMsg] = useState("");
   const [dir, setDir] = useState("");
 
-  listen('tauri://file-drop', event => {
-    const dir = event.payload[0]
-    setDir(dir)
+  listen<string>('tauri://file-drop', (event) => {
+    setDir(event.payload[0])
   })
 
   async function getDir() {
