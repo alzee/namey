@@ -4,6 +4,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { open } from '@tauri-apps/api/dialog';
 import { renameFile, readDir } from '@tauri-apps/api/fs';
 import { getName, getVersion } from '@tauri-apps/api/app';
+import { listen } from '@tauri-apps/api/event';
 import "./App.css";
 
 const ver = await getVersion();
@@ -14,6 +15,11 @@ function App() {
   const [digit, setDigit] = useState(2);
   const [msg, setMsg] = useState("");
   const [dir, setDir] = useState("");
+
+  listen('tauri://file-drop', event => {
+    const dir = event.payload[0]
+    setDir(dir)
+  })
 
   async function getDir() {
     const dir = await open({directory: true})
@@ -26,20 +32,24 @@ function App() {
     if (dir === null || dir === '') {
       setMsg('请选择目录')
     } else {
-      setMsg('处理中...')
-      const entries = await readDir(dir)
-      for (const entry of entries) {
-        // ignore dirs
-        if (entry.children === undefined) {
-          const arr = entry.name!.split('.')
-          const ext = arr.pop()
-          // remove leadding 0s so don't need to worry about name.length gt or lt digit
-          const name = arr.join('.').replace(/^0+/, '')
-          const newName = name.padStart(digit, '0')
-          await renameFile(entry.path, dir + '/' + newName + '.' + ext);
+      try {
+        const entries = await readDir(dir)
+        setMsg('处理中...')
+        for (const entry of entries) {
+          // ignore dirs
+          if (entry.children === undefined) {
+            const arr = entry.name!.split('.')
+            const ext = arr.pop()
+            // remove leadding 0s so don't need to worry about name.length gt or lt digit
+            const name = arr.join('.').replace(/^0+/, '')
+            const newName = name.padStart(digit, '0')
+            await renameFile(entry.path, dir + '/' + newName + '.' + ext);
+          }
         }
+        setMsg('完成')
+      } catch(err) {
+        setMsg('只能选择目录');
       }
-      setMsg('完成')
     }
   }
 
@@ -64,12 +74,13 @@ function App() {
             rename(dir, digit)
           }}
         >
+          <label>点击选择目录或将目录拖拽到这里</label>
           <input
             id="dir-input"
             onClick={() => getDir()}
             readOnly
             required
-            placeholder="选择目录"
+            placeholder="点击选择目录或将目录拖拽到这里"
             value={dir}
           />
           <div className="row2">
