@@ -8,21 +8,22 @@
   },
   "package": {
     "productName": "namey",
-    "version": "0.1.2"
+    "version": "0.1.3"
   },
   "tauri": {
     "allowlist": {
       "all": false,
-      "shell": {
+      "dialog": {
         "all": false,
         "open": true
       },
-      "dialog": {
-        "open": true
-      },
       "fs": {
+        "all": false,
         "readDir": true,
         "renameFile": true
+      },
+      "app": {
+        "all": false
       }
     },
     "bundle": {
