@@ -52,6 +52,8 @@ function App() {
     }
   }
 
+  document.addEventListener('contextmenu', event => event.preventDefault());
+
   return (
     <div className="container">
       <div className="row">
