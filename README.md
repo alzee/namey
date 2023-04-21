@@ -1,7 +1,3 @@
-# Tauri + React + Typescript
+# namey
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+Rename filenames (without ext) in a directory, make filenames to fit the length specified by prefixing with 0s or trimming leading 0s.
