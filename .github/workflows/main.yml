@@ -1,8 +1,8 @@
 name: 'publish'
 on:
   push:
-    branches:
-      - release
+    tags:
+      - '*'
 
 jobs:
   publish-tauri:
@@ -29,7 +29,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: 'App v__VERSION__'
+          releaseName: 'namey v__VERSION__'
           releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: true
+          releaseDraft: false
           prerelease: false
