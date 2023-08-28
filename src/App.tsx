@@ -36,18 +36,25 @@ function App() {
         setMsg('处理中...')
         for (const entry of entries) {
           // ignore dirs
-          if (entry.children === undefined) {
+          // if (entry.children === undefined) {
             const arr = entry.name!.split('.')
-            const ext = arr.pop()
+            let ext
+            if (arr[1] !== undefined) {
+              ext = arr.pop()
+            }
             // remove leadding 0s so don't need to worry about name.length gt or lt digit
             const name = arr.join('.').replace(/^0+/, '')
-            const newName = name.padStart(digit, '0')
-            await renameFile(entry.path, dir + '/' + newName + '.' + ext);
-          }
+            let newName = name.padStart(digit, '0')
+            if (ext !== undefined) {
+              newName = newName + '.' + ext
+            }
+            await renameFile(entry.path, dir + '/' + newName);
+          // }
         }
         setMsg('完成')
       } catch(err) {
-        setMsg('只能选择目录');
+        console.log(err)
+        setMsg('只能选择目录')
       }
     }
   }
