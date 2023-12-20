@@ -44,7 +44,7 @@ function App() {
               ext = arr.pop()
             }
             const originName = arr.join('.')
-            let newName: str = originName
+            let newName: string = originName
             if (digit !== 0) {
               // remove leadding 0s so don't need to worry about name.length gt or lt digit
               newName = originName.replace(/^0+/, '').padStart(digit, '0')
