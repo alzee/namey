@@ -11,10 +11,11 @@ const ver = await getVersion();
 const appName = await getName();
 
 function App() {
-  const [name, setName] = useState("");
-  const [digit, setDigit] = useState(2);
-  const [msg, setMsg] = useState("");
-  const [dir, setDir] = useState("");
+  const [name, setName] = useState("")
+  const [digit, setDigit] = useState(0)
+  const [prefix, setPrefix] = useState('')
+  const [msg, setMsg] = useState("")
+  const [dir, setDir] = useState("")
 
   listen<string>('tauri://file-drop', (event) => {
     setDir(event.payload[0])
@@ -27,7 +28,7 @@ function App() {
     }
   }
 
-  async function rename(dir: string, digit: number) {
+  async function rename() {
     if (dir === null || dir === '') {
       setMsg('请选择目录')
     } else {
@@ -42,9 +43,15 @@ function App() {
             if (arr[1] !== undefined) {
               ext = arr.pop()
             }
-            // remove leadding 0s so don't need to worry about name.length gt or lt digit
-            const name = arr.join('.').replace(/^0+/, '')
-            let newName = name.padStart(digit, '0')
+            const originName = arr.join('.')
+            let newName: str = originName
+            if (digit !== 0) {
+              // remove leadding 0s so don't need to worry about name.length gt or lt digit
+              newName = originName.replace(/^0+/, '').padStart(digit, '0')
+            }
+            if (prefix !== '') {
+              newName = String(prefix) + String(newName)
+            }
             if (ext !== undefined) {
               newName = newName + '.' + ext
             }
@@ -52,6 +59,7 @@ function App() {
           // }
         }
         setMsg('完成')
+        setPrefix('')
       } catch(err) {
         console.log(err)
         setMsg('只能选择目录')
@@ -79,10 +87,11 @@ function App() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            rename(dir, digit)
+            rename()
           }}
         >
           <label>点击选择目录或将目录拖拽到这里</label>
+          <div>
           <input
             id="dir-input"
             onClick={() => getDir()}
@@ -91,15 +100,24 @@ function App() {
             placeholder="点击选择目录或将目录拖拽到这里"
             value={dir}
           />
-          <div className="row2">
+          </div>
+          <div>
           <input
             id="digit"
             type="number"
-            min="2"
-            required
             onChange={(e) => setDigit(Number(e.currentTarget.value))}
-            placeholder="文件名长度"
+            placeholder="文件名长度（不含前缀）"
           />
+          </div>
+          <div>
+          <input
+            id="prefix"
+            onChange={(e) => setPrefix(String(e.currentTarget.value))}
+            placeholder="添加前缀"
+            value={prefix}
+          />
+          </div>
+          <div>
           <button type="submit">确定</button>
           </div>
         </form>

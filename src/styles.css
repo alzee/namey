@@ -83,12 +83,12 @@ input,
 button {
   outline: none;
   display: block;
-  margin: 10px 0;
+  margin: 10px auto;
+  width: 15rem;
 }
 
-.row2{
-  display: flex;
-  justify-content: space-between;
+button {
+  width: 100% !important;
 }
 
 .footer{
