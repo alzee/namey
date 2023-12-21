@@ -13,7 +13,7 @@ const appName = await getName();
 function App() {
   const [name, setName] = useState("")
   const [digit, setDigit] = useState(0)
-  const [prefix, setPrefix] = useState('')
+  const [prefix, setPrefix] = useState("")
   const [msg, setMsg] = useState("")
   const [dir, setDir] = useState("")
 
